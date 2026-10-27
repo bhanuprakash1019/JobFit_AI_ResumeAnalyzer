@@ -1,0 +1,234 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090b14">
+  <title>JobFit AI — Resume Intelligence</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css', v='20261025-premium-1') }}">
+  <script src="{{ url_for('static', filename='app.js', v='20261025-premium-1') }}" defer></script>
+</head>
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+  <div class="grid-overlay"></div>
+
+  <aside class="sidebar">
+    <a class="brand" href="/">
+      <span class="brand-icon">✳</span>
+      <span>JobFit<span class="accent"> AI</span></span>
+    </a>
+
+    <div class="side-label">WORKSPACE</div>
+    <a class="nav-link active" href="#analyzer"><span>◈</span> Resume Analyzer</a>
+    <a class="nav-link" href="#results"><span>▤</span> Analysis Results</a>
+    <a class="nav-link" href="#recommendations"><span>✧</span> Skill Roadmap</a>
+
+    <div class="sidebar-bottom">
+      <div class="status-dot"></div>
+      <div>
+        <strong>Local AI workspace</strong>
+        <small>Analysis runs on your server</small>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">CAREER INTELLIGENCE PLATFORM</div>
+        <div class="top-title">Resume workspace</div>
+      </div>
+      <div class="top-pill"><span class="status-dot"></span> System ready</div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="sparkle">✦</span> AI-POWERED CAREER ANALYSIS</div>
+        <h1>Make your next move<br>with <span class="gradient-text">confidence.</span></h1>
+        <p>Discover how your resume aligns with a role, uncover skill gaps, and build a focused learning plan.</p>
+        <div class="hero-tags">
+          <span>✦ Skill matching</span>
+          <span>↗ Gap analysis</span>
+          <span>⌘ Learning roadmap</span>
+        </div>
+      </div>
+
+      <div class="hero-orb" aria-hidden="true">
+        <div class="orb-ring ring-one"></div>
+        <div class="orb-ring ring-two"></div>
+        <div class="orb-ring ring-three"></div>
+        <div class="orb-core">✳</div>
+        <span class="orb-label orb-label-one">ANALYZE</span>
+        <span class="orb-label orb-label-two">IMPROVE</span>
+      </div>
+    </section>
+
+    <section class="workspace-grid" id="analyzer">
+      <form id="analyze-form" class="panel form-panel">
+        <div class="section-heading">
+          <div class="section-icon">↥</div>
+          <div>
+            <h2>Analyze your resume</h2>
+            <p>Upload your resume and add the target job details.</p>
+          </div>
+        </div>
+
+        <label class="field-label">YOUR RESUME <span>PDF or DOCX · Max 10 MB</span></label>
+        <label id="drop-zone" class="drop-zone" for="resume">
+          <input id="resume" name="resume" type="file" accept=".pdf,.docx" required>
+          <div class="upload-icon">↥</div>
+          <strong id="file-title">Drop your resume here</strong>
+          <span id="file-subtitle">or <b>browse files</b> from your computer</span>
+          <span class="file-types">PDF <i></i> DOCX</span>
+        </label>
+
+        <label class="field-label" for="experience">RELEVANT EXPERIENCE <span>Years</span></label>
+        <input class="text-input" id="experience" name="experience" type="number"
+               min="0" max="50" step="0.5" value="0">
+
+        <label class="field-label" for="job-description">JOB DESCRIPTION</label>
+        <textarea id="job-description" name="job_description"
+          placeholder="Paste the job description, required skills, responsibilities and qualifications..."
+          required></textarea>
+
+        <div class="privacy-note">⌑ Your resume is processed by this local application and is not saved by this interface.</div>
+        <button id="analyze-button" class="primary-button" type="submit">
+          <span class="button-text">Analyze my resume <span>↗</span></span>
+          <span class="button-spinner"></span>
+        </button>
+        <p id="form-error" class="error-message" role="alert"></p>
+      </form>
+
+      <div class="right-column">
+        <section class="panel how-panel">
+          <div class="eyebrow">YOUR WORKFLOW</div>
+          <h2>From resume to roadmap.</h2>
+          <div class="workflow-step">
+            <div class="step-icon">01</div>
+            <div><strong>Understand your profile</strong><p>Extract resume text and identify skills and job requirements.</p></div>
+          </div>
+          <div class="workflow-step">
+            <div class="step-icon">02</div>
+            <div><strong>Compare with the role</strong><p>Find detected matches and potential gaps.</p></div>
+          </div>
+          <div class="workflow-step">
+            <div class="step-icon">03</div>
+            <div><strong>Plan your next steps</strong><p>Get learning suggestions for relevant gaps.</p></div>
+          </div>
+        </section>
+
+        <section class="panel note-panel">
+          <div class="note-icon">✦</div>
+          <div>
+            <strong>More than a score</strong>
+            <p>Use the detailed skill comparison to decide what to improve. A keyword match cannot prove someone's true proficiency.</p>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section id="loading-panel" class="panel loading-panel hidden" aria-live="polite">
+      <div class="loader-orbit"><span>✳</span></div>
+      <div class="loading-kicker"><span class="live-dot"></span> LIVE ANALYSIS</div>
+      <h2>Building your career intelligence.</h2>
+      <p id="loading-stage" role="status">Preparing your resume for analysis…</p>
+      <div class="progress-heading"><span>Analysis progress</span><strong id="loading-percent">0%</strong></div>
+      <div class="loading-track" role="progressbar" aria-label="Resume analysis progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="loading-progress-fill"></span></div>
+      <div class="loading-stages" aria-hidden="true">
+        <span class="loading-stage active" data-stage="0"><i>01</i> Extract</span>
+        <span class="loading-stage" data-stage="1"><i>02</i> Compare</span>
+        <span class="loading-stage" data-stage="2"><i>03</i> Match</span>
+        <span class="loading-stage" data-stage="3"><i>04</i> Roadmap</span>
+      </div>
+      <p class="progress-note">Progress is an estimate of the current workflow, not a measure of model confidence.</p>
+    </section>
+
+    <section id="results" class="results-section hidden">
+      <div class="results-header">
+        <div>
+          <div class="eyebrow">YOUR ANALYSIS</div>
+          <h2>Here's your career snapshot.</h2>
+          <p id="summary-text">Analysis completed.</p>
+        </div>
+        <button id="download-report" class="secondary-button" type="button">↓ Download report</button>
+      </div>
+
+      <div class="metrics-grid">
+        <article class="panel metric-card score-card">
+          <span class="metric-label">SKILL MATCH</span>
+          <div class="score-row">
+            <div class="score-ring" id="score-ring"><div><strong id="score-value">0%</strong><small>match</small></div></div>
+            <div><h3 id="score-heading">Your alignment</h3><p>Based on detected skills and tracked job requirements</p></div>
+          </div>
+        </article>
+        <article class="panel metric-card">
+          <span class="metric-label">MATCHED ITEMS</span>
+          <div class="metric-number green" id="matched-count">0</div>
+          <p>Detected in resume and job description</p>
+        </article>
+        <article class="panel metric-card">
+          <span class="metric-label">POTENTIAL GAPS</span>
+          <div class="metric-number purple" id="missing-count">0</div>
+          <p>Not detected in the resume text</p>
+        </article>
+      </div>
+
+      <section class="panel requirement-analysis-panel" id="requirement-analysis">
+        <div class="section-heading">
+          <div class="section-icon">▤</div>
+          <div>
+            <h2>Job requirement analysis</h2>
+            <p>Review how your resume evidence aligns with the role across six categories.</p>
+          </div>
+        </div>
+        <div id="requirement-summary"></div>
+        <div id="requirement-categories" class="requirement-categories"></div>
+        <div class="requirement-reasons-wrap">
+          <h3>Potential reasons to review</h3>
+          <div id="rejection-reasons" class="rejection-reasons"></div>
+        </div>
+        <p id="requirement-disclaimer" class="disclaimer"></p>
+      </section>
+
+      <div class="results-grid">
+        <section class="panel result-panel">
+          <div class="section-heading">
+            <div class="section-icon green-bg">✓</div>
+            <div><h2>Matched skills &amp; requirements</h2><p>Skills and tracked job terms evidenced in both documents</p></div>
+          </div>
+          <div id="matched-skills" class="skill-list"></div>
+        </section>
+
+        <section class="panel result-panel">
+          <div class="section-heading">
+            <div class="section-icon purple-bg">✧</div>
+            <div><h2>Potential skill gaps</h2><p>Terms to verify or strengthen</p></div>
+          </div>
+          <div id="missing-skills" class="skill-list"></div>
+        </section>
+      </div>
+
+      <section class="panel recommendations-panel" id="recommendations">
+        <div class="section-heading">
+          <div class="section-icon">↗</div>
+          <div><h2>Your learning roadmap</h2><p>Suggested next steps based on detected gaps</p></div>
+        </div>
+        <div id="recommendation-list" class="recommendation-grid"></div>
+      </section>
+
+      <section class="panel model-panel">
+        <div class="section-heading">
+          <div class="section-icon">⌘</div>
+          <div><h2>Experimental model output</h2><p>Separate from the evidence-based skill comparison</p></div>
+        </div>
+        <div id="model-output"></div>
+        <p class="disclaimer">The classifier was trained on synthetic demonstration data. Its labels and scores are not validated real-world rejection probabilities and do not establish why an employer might reject an application.</p>
+      </section>
+    </section>
+
+    <footer>JOBFIT AI <span>·</span> Resume intelligence workspace <span>·</span> Built for better preparation</footer>
+  </main>
+</body>
+</html>
