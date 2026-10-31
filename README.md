@@ -206,4 +206,3 @@ Developed as a Machine Learning project.
 ## Email
 
 bhanuprakashreddy.p1019@gmail.com
->>>>>>> 17088e12f7d3f1422d57879e78a66c348168f0c0
