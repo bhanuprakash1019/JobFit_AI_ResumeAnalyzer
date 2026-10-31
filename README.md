@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 # JobFit AI – Job Application Rejection Reason Predictor
 
@@ -102,7 +101,6 @@ Developed as a Machine Learning project.
 ## Email
 
 bhanuprakashreddy.p1019@gmail.com
-=======
 
 # JobFit AI – Job Application Rejection Reason Predictor
 
